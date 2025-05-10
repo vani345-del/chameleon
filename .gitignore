@@ -1,0 +1,13 @@
+#Logs
+logs
+*.logs
+
+my-project/node_modules/
+backend/node_modules/
+
+my-project/.env
+backend/.env
+
+
+.DS_Store
+
