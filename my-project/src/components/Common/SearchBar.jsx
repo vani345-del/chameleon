@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { HiMagnifyingGlass, HiMiniXCircle } from 'react-icons/hi2';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setFilters,fetchProductsByFilters } from '../../redux/slices/productsSlice';
 
 const SearchBar = () => {
   const [searchbar,setsearchbar]=useState('');
@@ -17,9 +18,9 @@ const SearchBar = () => {
 
   const handleSearchbar=(e)=>{
     e.preventDefault();
-    dispatch(setFilters({search:searchTerm}));
-    dispatch(fetchProductsByFilters({search:searchTerm}));
-    navigate(`/collections/all?search=${searchTerm}`)
+    dispatch(setFilters({search:searchbar}));
+    dispatch(fetchProductsByFilters({search:searchbar}));
+    navigate(`/collections/all?search=${searchbar}`)
     setIsOpen(false)
   }
 
@@ -28,7 +29,7 @@ const SearchBar = () => {
     <div className={`flex items-center justify-center w-full transition-all duration-300 ${isopen ? "absolute top-0 left-0 w-full bg-white h-24 z-50":"w-auto"}`}>
     {isopen ? (
       <form onSubmit={handleSearchbar}
-      className='realtive flex justify-center items-center w-full'>
+      className='relative flex justify-center items-center w-full'>
       <div className='relative w-1/2'>
       <input type='text' placeholder='search...' value={searchbar}
        onChange={(e)=>setsearchbar(e.target.value)}
