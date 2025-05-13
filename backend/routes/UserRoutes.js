@@ -28,7 +28,10 @@ router.post("/register",async(req,res)=>{
         // sign and return the token along with user data
 
         jwt.sign(payload,process.env.JWT_SECRET,{expiresIn:"40h"},(err,token)=>{
-            if(err) throw err;
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: "Error signing token" });
+            }
             //Send the user  and token in response
 
             res.status(201).json({
@@ -45,7 +48,7 @@ router.post("/register",async(req,res)=>{
         
     } catch (error) {
         console.log(error);
-        res.status(500).send("Server Error");
+        return res.status(500).json({ message: 'Server Error' });
         
     }
 });

@@ -39,17 +39,20 @@ export const loginUser=createAsyncThunk("auth/loginUser",async(userData,{rejectW
 //Async thunk for user regsitration
 export const registerUser=createAsyncThunk("auth/registerUser",async(userData,{rejectWithValue})=>{
     try {
-        const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`,userData);
-
-        console.log(response.data.user);
+        const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users/register`,userData
+        );
         localStorage.setItem("userInfo",JSON.stringify(response.data.user));
         localStorage.setItem("userToken",response.data.token);
 
         return response.data.user;//REturn the user object from the response
     } catch (error) {
-        return rejectWithValue(error.response.data)
+        
+       
+        // Default message if no specific error is available
+      return rejectWithValue(error.response.data);
         
     }
+
 });
 
 //slice
@@ -96,6 +99,7 @@ const authSlice=createSlice({
         .addCase(registerUser.rejected, (state,action)=>{
             state.loading=false;
             state.error=action.payload.message;
+            
         })
     }
 });

@@ -9,12 +9,14 @@ import { addToCart } from '../../redux/slices/cartSlice';
 
 
 const ProductDetails = ({productId}) => {
-    const {Id}=useParams();
+    const {id}=useParams();
     const dispatch=useDispatch();
     const {selectedProduct,loading,error,similarProducts}=useSelector(
         (state)=>state.products
-
     );
+   
+    
+    
     const {user,guestId}=useSelector((state)=>state.auth);
     const [mainImage,setMainImage]=useState(null);
     const[selectedSize,setSelectedSize]=useState(null);
@@ -22,10 +24,11 @@ const ProductDetails = ({productId}) => {
     const [quantity,setQuantity]=useState(1);
     const[isButtonDisable,setIsButtonDisable]=useState(false);
 
-    const productFetchId=productId||Id;
+    const productFetchId=productId||id;
 
     useEffect(()=>{
         if(productFetchId){
+            console.log("Fetching product with ID:", productFetchId);
             dispatch(fetchProductDetails(productFetchId));
             dispatch(fetchSimilarProducts({id:productFetchId}));
         }
@@ -58,7 +61,7 @@ const ProductDetails = ({productId}) => {
                 size:selectedSize,
                 color:selectedColor,
                 guestId,
-                userId:user ?._id,
+                userId:user?._id,
             })
         )
         .then(()=>{
@@ -84,8 +87,8 @@ const ProductDetails = ({productId}) => {
          <div className="max-w-6xl mx-auto bg-white p-8 rounded-lg">
             <div className='flex flex-col md:flex-row '>
                 {/* left thumnails */}
-                <div className="hidden md:flex flex-col space-y-4 mr-6 ml-20">
-                    {selectedProduct.images.map((image,index)=>(
+               <div className="hidden md:flex flex-col space-y-4 mr-6 ml-20">
+               {selectedProduct?.images?.slice(0, 2).map((image, index) => (
                         <img
                         key={index}
                         src={image.url}
@@ -118,7 +121,7 @@ const ProductDetails = ({productId}) => {
                 {/* Right side */}
                 <div className="md:w-1/2 md:ml-10">
                 <h1 className='text-2xl md:text-3xl font-semibold mb-2'>
-                    {selectedProduct.name}
+                    {selectedProduct?.name}
                 </h1>
                 <p className='text-lg text-gray-600 mb-1 line-through'>
                 {selectedProduct.originalPrice && `${selectedProduct.originalPrice}`}

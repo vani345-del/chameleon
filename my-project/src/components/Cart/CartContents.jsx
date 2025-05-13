@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { RiDeleteBin3Line } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
-import { updateCartItemQuantity } from '../../redux/slices/cartSlice';
+import { removeFromCart, updateCartItemQuantity } from '../../redux/slices/cartSlice';
 
 const CartContents = ({cart,userId,guestId}) => {
   const dispatch=useDispatch();
@@ -23,6 +23,7 @@ const CartContents = ({cart,userId,guestId}) => {
   };
 
 const handleRemoveFromCart=(productId,size,color)=>{
+
   dispatch(removeFromCart({productId,guestId,userId,size,color}));
 }
     

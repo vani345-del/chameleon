@@ -34,7 +34,7 @@ const CheckOut = () => {
 
     const handleCreateCheckout=async(e)=>{
         e.preventDefault();
-        console.log("hi continue to pay button")
+       
        if(cart && cart.products.length>0){
         const res=await dispatch(
             createCheckout({
@@ -45,9 +45,9 @@ const CheckOut = () => {
             })
 
         );
-        console.log("Checkout response:", res);
+       
         if(res.payload && res.payload._id){
-            console.log(res.payload)
+          
             setCheckOutId(res.payload._id);//set checkout Id if checkout was successful
         }
        }
@@ -63,7 +63,7 @@ const CheckOut = () => {
                 },
             }
         );
-        console.log("Checkout finalized:", response.data);
+       
         await handleFinalizeCheckout(checkoutId);
         
       } catch (error) {

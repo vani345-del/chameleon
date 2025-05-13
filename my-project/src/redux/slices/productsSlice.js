@@ -35,8 +35,7 @@ export const fetchProductsByFilters=createAsyncThunk("products/fetchByFilters",a
     const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products?${query.toString()}`
     
 );
-console.log("Fetched data:",response.data)
-console.log("Fetching with query:", query.toString());
+
 
 
 return response.data;
@@ -47,6 +46,7 @@ return response.data;
 export const fetchProductDetails=createAsyncThunk("products/fetchProductDetails",async(id)=>{
     const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`)
     return response.data;
+    
 })
 
 //Async thunk to fetch similar products

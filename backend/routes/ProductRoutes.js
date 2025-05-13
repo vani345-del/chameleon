@@ -153,8 +153,17 @@ router.get("/",async(req,res)=>{
                 
             }
         }
+
+         // Parse and validate limit param
+         let parsedLimit = parseInt(limit, 10);
+         if (isNaN(parsedLimit) || parsedLimit <= 0) {
+         parsedLimit = 20; // or any safe default
+        }
+
+
+
         //fetch produts from the database
-        let products=await Product.find(query).sort(sort).limit(Number(limit)||0);
+        const products = await Product.find(query).sort(sort).limit(parsedLimit);
         res.json(products)
         
 

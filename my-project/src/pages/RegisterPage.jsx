@@ -5,6 +5,7 @@ import register from "../assets/register.webp";
 import { registerUser } from '../redux/slices/authSlice'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { mergeCart } from '../redux/slices/cartSlice';
+import { toast } from 'sonner';
 
 
 const RegisterPage = () => {
@@ -15,7 +16,7 @@ const RegisterPage = () => {
    const dispatch=useDispatch();
    const navigate=useNavigate();
    const location=useLocation();
-   const {user,guestId,loading}=useSelector((state)=>state.auth);
+   const {user,guestId,loading,error}=useSelector((state)=>state.auth);
    const {cart}=useSelector((state)=>state.cart);
 
    //get redurect parameter and check if its checkout or something
@@ -35,11 +36,13 @@ const RegisterPage = () => {
    },[user,guestId,cart,navigate,isCheckoutRedirect,dispatch])
 
 
-   const handleSubmit=(e)=>{
-     e.preventDefault();
-     console.log({name,email,password})
-     dispatch(registerUser({name,email,password}))
-   }
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    const resultAction = await dispatch(registerUser({ name, email, password }));
+     if (resultAction.payload?.message === 'user already exists') {
+      toast.error("User with this email already exists. Please try a different email.");
+     }
+  };
 
      return (
       <div className="flex">
@@ -81,6 +84,18 @@ const RegisterPage = () => {
            <button  type='submit' className="w-full bg-black text-white font-semibold hover:bg-gray-800 transition">
                {loading ? "loading...":"Sign Up"}
            </button>
+
+            {/* Error Message */}
+
+          {error && (
+            <p className="mt-4 text-red-500 text-sm text-center">
+              {error} {/* Display the error message here */}
+            </p>
+          )}
+
+
+
+
            <p className="mt-6 text-center text-sm">
                Don't have the account ?
                <Link to={`/login?redirect=${encodeURIComponent(redirect)}`} className='text-blue-500'>

@@ -12,10 +12,10 @@ const FilterSdeBar = () => {
     size:[],
     material:[],
     brand:[],
-    minPrice:500,
-    maxPrice:10000,
+    minPrice:0,
+    maxPrice:100,
   });
-  const [priceRange,setPriceRange]=useState([500,10000]);
+  const [priceRange,setPriceRange]=useState([0,100]);
   const categories=["Top Wear","Bottom Wear"];
   const colors=[
     "Red",
@@ -56,13 +56,13 @@ const FilterSdeBar = () => {
       category:params.category||"",
       gender:params.gender||"",
       color:params.color||"",
-      size:params.size ? params.size.split(","):[],
-      material:params.size ? params.material.split(","):[],
-      brand:params.size ? params.brand.split(","):[],
-      minPrice:params.minPrice||500,
-      maxPrice:params.maxPrice||10000,
+      size:params.size? params.size.split(","):[],
+      material:params.material? params.material.split(","):[],
+      brand:params.brand? params.brand.split(","):[],
+      minPrice:params.minPrice||0,
+      maxPrice:params.maxPrice||100,
     });
-    setPriceRange([0,params.maxPrice || 10000 ])
+    setPriceRange([0,params.maxPrice || 100 ])
   },[searchParams])
 
   const handleFilterChange=(e)=>{
@@ -82,7 +82,7 @@ const FilterSdeBar = () => {
     }
     setFilters(newFilters);
     updateParams(newFilters)
-    console.log(newFilters)
+   
   };
 
   const updateParams=(newFilters)=>{
@@ -101,8 +101,8 @@ const FilterSdeBar = () => {
 
   const handlePriceChange=(e)=>{
     const newPrice=e.target.value;
-    setPriceRange([500,newPrice]);
-    const newFilters={...filters,minPrice:500,maxPrice:newPrice};
+    setPriceRange([0,newPrice]);
+    const newFilters={...filters,minPrice:0,maxPrice:newPrice};
     setFilters(filters);
     updateParams(newFilters);
   }
@@ -204,12 +204,12 @@ const FilterSdeBar = () => {
 
       <div className="mb-8">
         <label  className="block text-gray-600 font-medium mb-2 ">Price Range</label>
-        <input type="range" name='priceRange' min={500} max={10000} 
+        <input type="range" name='priceRange' min={0} max={100} 
         value={priceRange[1]}
         onChange={handlePriceChange}
         className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" />
         <div className="flex justify-between text-gray-600 mt-2">
-          <span>₹500</span>
+          <span>$0</span>
           <span>₹{priceRange[1]}</span>
         </div>
       </div>

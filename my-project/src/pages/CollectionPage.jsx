@@ -26,7 +26,7 @@ const CollectionPage = () => {
       Object.entries(allParams).filter(([_, v]) => v?.trim?.() !== "")
     );
   
-    console.log("Cleaned Filters Before Dispatch:", cleanedParams);
+    
   
     dispatch(fetchProductsByFilters(cleanedParams));
   }, [dispatch, collection, searchParams]);
@@ -38,7 +38,6 @@ const CollectionPage = () => {
   }, [dispatch, collection,searchParams]);
 
   useEffect(() => {
-    console.log("Products:", products);
     console.log("Loading:", loading);
     console.log("Error:", error);
   }, [products, loading, error]);
