@@ -50,8 +50,8 @@ const MyordersPage = () => {
                                     />
                                 </td>
                                 <td className="py-2 px-2 sm:py-4 sm:px-4 font-medium text-gray-900 whitespace-nowrap">#{order._id}</td>
-                                <td className="py-2 px-2 sm:py-4 sm:px-4">{new Date(order.createAt).toLocaleDateString()}{" "} 
-                                {new Date(order.createAt).toLocaleTimeString()}
+                                <td className="py-2 px-2 sm:py-4 sm:px-4">{new Date(order.createdAt).toLocaleDateString()}{" "} 
+                                {new Date(order.createdAt).toLocaleTimeString()}
                                 </td>
                                 <td className="py-2 px-2 sm:py-4 sm:px-4">{order.shippingAddress
                                 ?`${order.shippingAddress.city},${order.shippingAddress.country}`:"N/A"
